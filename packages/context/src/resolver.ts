@@ -15,6 +15,7 @@ import {
   describeInjectedProperties,
   Injection,
 } from './inject';
+import {invokeMethodWithInterceptors} from './interceptor';
 import {ResolutionSession} from './resolution-session';
 import {
   BoundValue,
@@ -282,7 +283,7 @@ export function invokeMethod(
     if (debug.enabled) {
       debug('Injected arguments for %s:', methodName, args);
     }
-    return targetWithMethods[method](...args);
+    return invokeMethodWithInterceptors(ctx, targetWithMethods, method, args);
   });
 }
 
